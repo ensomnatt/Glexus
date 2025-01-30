@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Glexus</title>
+    <link rel="shortcut icon" href="/static/assets/watermelon-3593669936.jpg">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <link href="/static/styles/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul class="nav-bar">
+          <li class="docs"><a href="/docs">Docs</a></li>
+          <li class="watch"><a href="/">Watch</a></li>
+          <li class="docs"><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <video id="player" playsinline controls>
+        <source src="/static/assets/Evangelion_opening4K.mp4" type="video/mp4">
+      </video>
+
+      <ul class="users-list" id="users-list">
+        <li class="users-list__item"></li>
+      </ul>
+    </main> 
+
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script src="/static/scripts/script.js"></script>
+  </body>
+</html>
