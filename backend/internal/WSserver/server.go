@@ -1,6 +1,7 @@
 package wsserver
 
 import (
+	"glexus/backend/internal/config"
 	"net/http"
 	"sync"
 	"time"
@@ -15,6 +16,7 @@ type Server struct {
   wsUpgrader *websocket.Upgrader
   clients *clients
   broadcast chan *wsMessage
+  config config.Config
 }
 
 type clients struct {
@@ -38,14 +40,14 @@ func NewServer(addr string) *Server {
       names: map[string]string{},
     },
     broadcast: make(chan *wsMessage),
+    config: *config.NewConfig(),
   }
 }
 
 func (s *Server) Start() error {
   s.r.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("frontend/src"))))
-  s.r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    http.ServeFile(w, r, "frontend/src/pages/watch.html")
-  })
+  s.r.Handle("/home/", http.StripPrefix("/home/", http.FileServer(http.Dir("/home"))))
+  s.r.HandleFunc("/", s.watch)
   s.r.HandleFunc("/ws", s.wsHandler)
   go s.writeToTheClients()
   return s.srv.ListenAndServe()
