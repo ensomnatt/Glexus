@@ -23,15 +23,18 @@ func NewConfig() *Config {
 
   _, err = os.Stat(appDir)
   if os.IsNotExist(err) {
+    logrus.Warn("can't find config dir. creating...")
     err := os.MkdirAll(appDir, 0755)
     if err != nil {
       logrus.Fatalf("error with creating config dir: %v", err)
     }
+    logrus.Info("created config dir")
 
     file, err := os.Create(configFile)
     if err != nil {
       log.Fatalf("error with creating config file: %v", err)
     }
+    logrus.Info("created config file")
 
     cfg := Config{
       VideoDir: "",
@@ -46,6 +49,7 @@ func NewConfig() *Config {
     if err != nil {
       log.Fatalf("error with writing default config to the file: %v", err)
     }
+    logrus.Info("wrote default config, config file was successfully create! you can edit it")
   }
 
   configData, err := os.ReadFile(configFile)
@@ -54,6 +58,7 @@ func NewConfig() *Config {
   if err != nil {
     logrus.Fatalf("error with reading config file: %v", err)
   }
+  logrus.Info("read the config file")
 
   return cfg
 }
