@@ -5,4 +5,5 @@ type wsMessage struct {
   IP string `json:"ip,omitempty"`
   Action string `json:"action"`
   UserNames []string `json:"usernames,omitempty"`
+  VideoFiles []string `json:"videofiles,omitempty"`
 }

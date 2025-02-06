@@ -123,3 +123,11 @@ func (s *Server) updateUserList() {
   }
   s.broadcast <- msg
 }
+
+func (s *Server) sendVideoFiles() {
+  msg := &wsMessage{
+    Action: "sendVideoFiles",
+    VideoFiles: s.config.VideoFiles,
+  }
+  s.broadcast <- msg
+}
