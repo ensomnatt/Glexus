@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-  wsserver := wsserver.NewServer("0.0.0.0:6969")
+  wsserver := wsserver.NewServer("0.0.0.0:8080")
   logrus.Info("server started")
   err := wsserver.Start()
   if err != nil {

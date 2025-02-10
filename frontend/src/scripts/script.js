@@ -26,6 +26,8 @@ ws.addEventListener("message", (event) => {
       break
     case "play":
       player.play()
+    case "sendVideoFiles":
+      updateVideoFiiles(data.videofiles)
   }
 })
 

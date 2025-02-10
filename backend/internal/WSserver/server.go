@@ -45,10 +45,12 @@ func NewServer(addr string) *Server {
 }
 
 func (s *Server) Start() error {
+  logrus.Infof("addres: %s", s.srv.Addr)
   s.r.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("frontend/src"))))
   s.r.Handle("/home/", http.StripPrefix("/home/", http.FileServer(http.Dir("/home"))))
   s.r.HandleFunc("/", s.watch)
   s.r.HandleFunc("/ws", s.wsHandler)
+  s.sendVideoFiles()
   go s.writeToTheClients()
   return s.srv.ListenAndServe()
 }

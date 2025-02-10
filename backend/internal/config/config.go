@@ -1,7 +1,6 @@
 package config
 
 import (
-	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -39,7 +38,7 @@ func NewConfig() *Config {
     cfg.createConfigFile()
   }
 
-  configData, err := os.ReadFile(configFile)
+  configData, err := os.ReadFile(cfg.configFile)
   err = toml.Unmarshal(configData, cfg)
   if err != nil {
     logrus.Fatalf("error with reading config file: %v", err)
@@ -71,7 +70,7 @@ func (c *Config) createConfigFile() {
 
     file, err := os.Create(c.configFile)
     if err != nil {
-      log.Fatalf("error with creating config file: %v", err)
+      logrus.Fatalf("error with creating config file: %v", err)
     }
     logrus.Info("created config file")
 
@@ -81,25 +80,29 @@ func (c *Config) createConfigFile() {
 
     data, err := toml.Marshal(cfg)
     if err != nil {
-      log.Fatalf("error with marshaling default config: %v", err)
+      logrus.Fatalf("error with marshaling default config: %v", err)
     }
 
     _, err = file.Write(data)
     if err != nil {
-      log.Fatalf("error with writing default config to the file: %v", err)
+      logrus.Fatalf("error with writing default config to the file: %v", err)
     }
     logrus.Info("wrote default config, config file was successfully create! you can edit it")
 }
 
 func (c *Config) getVideoFiles() {
+  if c.VideoDir == "" {
+    logrus.Error("video directory is null")
+  }
+
   videoFiles, err := os.ReadDir(c.VideoDir)
   if err != nil {
-    log.Fatalf("failed to get video files: %v", err)
+    logrus.Fatalf("failed to get video files: %v", err)
   }
 
   var videoFilesSorted []string
   for _, file := range videoFiles {
-    info, _ := os.Stat(file.Name())
+    info, _ := os.Stat(c.VideoDir+file.Name())
     if !info.IsDir() {
       videoFilesSorted = append(videoFilesSorted, file.Name())
     }
@@ -118,4 +121,5 @@ func (c *Config) getVideoFiles() {
   })
 
   c.VideoFiles = videoFilesSorted
+  logrus.Info("got video files paths")
 } 
