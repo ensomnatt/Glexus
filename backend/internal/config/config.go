@@ -91,10 +91,6 @@ func (c *Config) createConfigFile() {
 }
 
 func (c *Config) getVideoFiles() {
-  if c.VideoDir == "" {
-    logrus.Error("video directory is null")
-  }
-
   videoFiles, err := os.ReadDir(c.VideoDir)
   if err != nil {
     logrus.Fatalf("failed to get video files: %v", err)
