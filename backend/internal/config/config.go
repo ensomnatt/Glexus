@@ -121,5 +121,4 @@ func (c *Config) getVideoFiles() {
   })
 
   c.VideoFiles = videoFilesSorted
-  logrus.Debug(c.VideoFiles)
 } 

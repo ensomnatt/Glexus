@@ -20,13 +20,21 @@
     </header>
 
     <main>
-      <video id="player" playsinline controls>
-        <source src="{{.VideoDir}}" type="video/mp4">
-      </video>
+      <video id="player" playsinline controls></video>
 
-      <ul class="users-list" id="users-list">
-        <li class="users-list__item"></li>
-      </ul>
+      <div class="side-panel">
+        <div class="side-panel__switcher">
+          <button type="button" class="side-panel__switcher-btn" id="users">Users</button>
+          <button type="button" class="side-panel__switcher-btn" id="videos">Videos</button>
+        </div>
+        <ul class="users-list" id="users-list">
+          <li class="users-list__item"></li>
+        </ul>
+
+        <ul class="video-list" id="video-list">
+          <li class="video-list__item" id="video-list__item"></li>
+        </ul>
+      </div>
     </main> 
 
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>

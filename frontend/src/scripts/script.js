@@ -12,6 +12,10 @@ const playerCustom = new Plyr("#player", {
   settings: []
 });
 const player = document.getElementById("player")
+const usersListBtn = document.getElementById("users")
+const videoListBtn = document.getElementById("videos")
+const usersList = document.getElementById("users-list")
+const videoList = document.getElementById("video-list")
 
 const arbuzPath = "/static/assets/watermelon-3593669936.jpg"
 
@@ -20,8 +24,22 @@ fetch("http://" + window.location.host + "/api/videofiles")
   .then(response => response.json())
   .then(data => {
     videoFiles = data.videofiles
+    
+    videoList.innerHTML = ""
+    videoFiles.forEach(function(file) {
+      const li = document.createElement("li")
+      const a = document.createElement("a")
+      a.textContent = cutFileName(file)
+      li.className = "video-list__item"
+      a.id = file
+
+      li.appendChild(a)
+
+      videoList.appendChild(li)
+    })
   })
   .catch(error => console.error("ошибка запроса: ", error))
+
 
 ws.addEventListener("message", (event) => {
   const data = JSON.parse(event.data)
@@ -39,10 +57,11 @@ ws.addEventListener("message", (event) => {
 
 player.addEventListener("pause", sendPauseSignal)
 player.addEventListener("play", sendPlaySignal)
+usersListBtn.addEventListener("click", changeSidePanelToUsers)
+videoListBtn.addEventListener("click", changeSidePanelToVideos)
 
 function updateUsers(usernames) {
-  const list = document.getElementById("users-list")
-  list.innerHTML = ""
+  usersList.innerHTML = ""
   usernames.forEach(function(username) {
     const li = document.createElement("li")
     const liText = document.createElement("h2")
@@ -55,7 +74,7 @@ function updateUsers(usernames) {
     li.appendChild(avatar)
     li.appendChild(liText)
 
-    list.appendChild(li)
+    usersList.appendChild(li)
   })
 }
 
@@ -75,3 +94,27 @@ function sendPlaySignal() {
   ws.send(data)
 }
 
+function changeSidePanelToUsers() {
+  usersList.style.display = "flex"
+  videoList.style.display = "none"
+}
+
+function changeSidePanelToVideos() {
+  videoList.style.display = "flex"
+  usersList.style.display = "none"
+}
+
+function cutFileName(file) {
+  const numberMatch = file.match(/\d+/g)
+  
+  if (!numberMatch) return file
+  
+  const number = numberMatch[0]
+  const indexOfNumber = file.lastIndexOf(number)    
+
+  if (file.length <= 20) file 
+
+  const truncatedString = file.slice(0, 20 - number.length - 3) + "..." + number
+  
+  return truncatedString
+}
