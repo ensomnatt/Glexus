@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+  logrus.SetLevel(logrus.DebugLevel)
   wsserver := wsserver.NewServer("0.0.0.0:6969")
   logrus.Info("server started")
   err := wsserver.Start()

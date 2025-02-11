@@ -15,6 +15,14 @@ const player = document.getElementById("player")
 
 const arbuzPath = "/static/assets/watermelon-3593669936.jpg"
 
+let videoFiles = null
+fetch("http://" + window.location.host + "/api/videofiles")
+  .then(response => response.json())
+  .then(data => {
+    videoFiles = data.videofiles
+  })
+  .catch(error => console.error("ошибка запроса: ", error))
+
 ws.addEventListener("message", (event) => {
   const data = JSON.parse(event.data)
   switch (data.action) {
@@ -66,3 +74,4 @@ function sendPlaySignal() {
   const data = JSON.stringify(msg)
   ws.send(data)
 }
+

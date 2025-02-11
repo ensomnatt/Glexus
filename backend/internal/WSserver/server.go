@@ -16,7 +16,7 @@ type Server struct {
   wsUpgrader *websocket.Upgrader
   clients *clients
   broadcast chan *wsMessage
-  config config.Config
+  config *config.Config
 }
 
 type clients struct {
@@ -40,7 +40,7 @@ func NewServer(addr string) *Server {
       names: map[string]string{},
     },
     broadcast: make(chan *wsMessage),
-    config: *config.NewConfig(),
+    config: config.NewConfig(),
   }
 }
 
@@ -49,6 +49,7 @@ func (s *Server) Start() error {
   s.r.Handle("/home/", http.StripPrefix("/home/", http.FileServer(http.Dir("/home"))))
   s.r.HandleFunc("/", s.watch)
   s.r.HandleFunc("/ws", s.wsHandler)
+  s.r.HandleFunc("GET /api/videofiles", s.sendVideoFiles)
   go s.writeToTheClients()
   return s.srv.ListenAndServe()
 }
@@ -120,14 +121,6 @@ func (s *Server) updateUserList() {
   msg := &wsMessage{
     Action: "updateUsers",
     UserNames: names,
-  }
-  s.broadcast <- msg
-}
-
-func (s *Server) sendVideoFiles() {
-  msg := &wsMessage{
-    Action: "sendVideoFiles",
-    VideoFiles: s.config.VideoFiles,
   }
   s.broadcast <- msg
 }

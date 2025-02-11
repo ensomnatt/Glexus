@@ -2,7 +2,6 @@ package wsserver
 
 import (
 	"html/template"
-	"log"
 	"net/http"
 	"os"
 
@@ -19,7 +18,7 @@ func (s *Server) watch(w http.ResponseWriter, r *http.Request) {
   }
 
   if _, err := os.Stat(data.VideoDir); os.IsNotExist(err) {
-    log.Fatalf("file doesn't exists")
+    logrus.Fatalf("file doesn't exists")
   }
 
   tmpl, err := template.ParseFiles("frontend/src/pages/watch.html")
