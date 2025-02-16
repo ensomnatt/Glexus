@@ -10,4 +10,5 @@ type wsMessage struct {
 type httpMessage struct {
   Type string `json:"type"`
   VideoFiles []string `json:"videofiles,omitempty"`
+  VideoDir string `json:"videodir,omitempty"`
 }

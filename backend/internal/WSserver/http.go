@@ -18,3 +18,15 @@ func (s *Server) sendVideoFiles(w http.ResponseWriter, _ *http.Request) {
     logrus.Errorf("failed to encode json: %v", err)
   }
 }
+
+func (s *Server) sendVideoDir(w http.ResponseWriter, _ *http.Request) {
+  msg := httpMessage{
+    Type: "sendVideoDir",
+    VideoDir: s.config.VideoDir,
+  }
+
+  err := json.NewEncoder(w).Encode(msg)
+  if err != nil {
+    logrus.Errorf("failed to encode json: %v", err)
+  }
+}

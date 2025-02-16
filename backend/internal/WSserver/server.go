@@ -50,6 +50,7 @@ func (s *Server) Start() error {
   s.r.HandleFunc("/", s.watch)
   s.r.HandleFunc("/ws", s.wsHandler)
   s.r.HandleFunc("GET /api/videofiles", s.sendVideoFiles)
+  s.r.HandleFunc("GET /api/videodir", s.sendVideoDir)
   go s.writeToTheClients()
   return s.srv.ListenAndServe()
 }

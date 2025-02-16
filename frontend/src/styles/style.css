@@ -123,6 +123,7 @@ main {
   color: var(--fourth);
   font-size: 25px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 #player {

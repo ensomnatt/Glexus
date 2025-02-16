@@ -19,6 +19,13 @@ const videoList = document.getElementById("video-list")
 
 const arbuzPath = "/static/assets/watermelon-3593669936.jpg"
 
+let videoDir = null 
+fetch("http://" + window.location.host + "/api/videodir")
+  .then(response => response.json())
+  .then(data => {
+    videoDir = data.videodir
+  })
+
 let videoFiles = null
 fetch("http://" + window.location.host + "/api/videofiles")
   .then(response => response.json())
@@ -30,15 +37,26 @@ fetch("http://" + window.location.host + "/api/videofiles")
       const li = document.createElement("li")
       const a = document.createElement("a")
       a.textContent = cutFileName(file)
+      a.className = "video-list__item-link"
       li.className = "video-list__item"
       a.id = file
+
+      a.addEventListener("click", function(event) {
+        event.preventDefault()
+        const videoName = this.id
+        const splitted = videoName.split(".")
+        const type = splitted[1]
+        player.src = videoDir + videoName
+        player.type = "video/" + type
+        console.log(player.src)
+      })
 
       li.appendChild(a)
 
       videoList.appendChild(li)
     })
   })
-  .catch(error => console.error("ошибка запроса: ", error))
+  .catch(error => console.error("request error: ", error))
 
 
 ws.addEventListener("message", (event) => {
