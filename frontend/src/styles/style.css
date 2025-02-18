@@ -25,15 +25,16 @@ button {
 }
 
 :root {
-  --first: #727D73;
-  --second: #AAB99A;
-  --third: #D0DDD0;
-  --fourth: #F0F0D7;
+  --first:#111111;
+  --second: #FFFFFF;
+  --third: #1A1A1A;
+  --fourth: #2B2B2B;
+  --fifth: #870911;
   --plyr-font-family: "Tektur";
-  --plyr-color-main: var(--first);
+  --plyr-color-main: var(--fifth);
   --plyr-badge-background: var(--first);
-  --plyr-badge-text-color: var(--fourth);
-  --plyr-video-control-color: var(--third);
+  --plyr-badge-text-color: var(--second);
+  --plyr-video-control-color: var(--second);
   --plyr-font-size-time: 16px;
 }
 
@@ -49,7 +50,6 @@ main {
   gap: 20px;
   width: 400px;
   background-color: var(--first);
-  border-left: 5px solid var(--third);
   height: calc(100vh - 60px);
   overflow-y: auto;
 }
@@ -60,10 +60,9 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 5px solid var(--third);
   position: sticky;
   top: 0;
-  background-color: var(--first);
+  background-color: var(--third);
   z-index: 1;
 }
 
@@ -74,21 +73,15 @@ main {
   flex: 1;
   flex-shrink: 0;
   height: 45px;
-  background-color: var(--first);
-  color: var(--fourth);
+  color: var(--second);
   font-size: 25px;
   font-weight: bold;
-  border-left: 5px solid var(--third);
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
 
 .side-panel__switcher-btn:hover, .side-panel__switcher-btn:active {
-  background-color: var(--second);
-}
-
-#users {
-  border: none;
+  background-color: var(--fourth);
 }
 
 .users-list, .video-list {
@@ -108,9 +101,10 @@ main {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  color: var(--fourth);
+  color: var(--second);
   font-size: 30px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .users-list__item-image {
@@ -120,7 +114,7 @@ main {
 }
 
 .video-list__item {
-  color: var(--fourth);
+  color: var(--second);
   font-size: 25px;
   font-weight: bold;
   cursor: pointer;
@@ -138,16 +132,20 @@ main {
   padding: 0 20px;
   height: 60px;
   background-color: var(--first);
-  border-bottom: 5px solid var(--third);
   font-weight: bold;
   font-size: 20px;
 }
 
 .docs, .profile {
-  color: var(--fourth);
+  color: var(--second);
 }
 
 .watch {
   font-size: 25px;
-  color: var(--third);
+  color: var(--second);
+}
+
+.users-list__item:hover, .video-list__item:hover, .watch:hover, .docs:hover, .profile:hover {
+  transition: all .2s ease-in-out;
+  transform: scale(.95);
 }

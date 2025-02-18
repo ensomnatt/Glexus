@@ -25,12 +25,15 @@ fetch("http://" + window.location.host + "/api/videodir")
   .then(data => {
     videoDir = data.videodir
   })
+  .catch(error => console.error(error))
 
 let videoFiles = null
 fetch("http://" + window.location.host + "/api/videofiles")
   .then(response => response.json())
   .then(data => {
     videoFiles = data.videofiles
+    player.src = videoDir + videoFiles[0]
+    player.type = "video/" + getVideoType(videoFiles[0])
     
     videoList.innerHTML = ""
     videoFiles.forEach(function(file) {
@@ -43,9 +46,7 @@ fetch("http://" + window.location.host + "/api/videofiles")
 
       a.addEventListener("click", function(event) {
         event.preventDefault()
-        const videoName = this.id
-        const splitted = videoName.split(".")
-        const type = splitted[1]
+        type = getVideoType(this.id)
         player.src = videoDir + videoName
         player.type = "video/" + type
         console.log(player.src)
@@ -135,4 +136,9 @@ function cutFileName(file) {
   const truncatedString = file.slice(0, 20 - number.length - 3) + "..." + number
   
   return truncatedString
+}
+
+function getVideoType(name) {
+    const splitted = name.split(".")
+    return splitted[1]
 }
