@@ -46,7 +46,8 @@ fetch("http://" + window.location.host + "/api/videofiles")
 
       a.addEventListener("click", function(event) {
         event.preventDefault()
-        type = getVideoType(this.id)
+        let type = getVideoType(this.id)
+        let videoName = this.id 
         player.src = videoDir + videoName
         player.type = "video/" + type
         console.log(player.src)
@@ -71,6 +72,7 @@ ws.addEventListener("message", (event) => {
       break
     case "play":
       player.play()
+      console.log(data.time)
       player.currentTime = data.time
   }
 })
