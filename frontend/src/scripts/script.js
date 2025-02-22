@@ -71,6 +71,7 @@ ws.addEventListener("message", (event) => {
       break
     case "play":
       player.play()
+      player.currentTime = data.time
   }
 })
 
@@ -107,6 +108,7 @@ function sendPauseSignal() {
 
 function sendPlaySignal() {
   const msg = {
+    time: player.currentTime,
     action: "play"
   } 
   const data = JSON.stringify(msg)
@@ -115,12 +117,16 @@ function sendPlaySignal() {
 
 function changeSidePanelToUsers() {
   usersList.style.display = "flex"
+  usersListBtn.style.backgroundColor = "var(--fifth)"
   videoList.style.display = "none"
+  videoListBtn.style.backgroundColor = "var(--third)"
 }
 
 function changeSidePanelToVideos() {
   videoList.style.display = "flex"
+  videoListBtn.style.backgroundColor = "var(--fifth)"
   usersList.style.display = "none"
+  usersListBtn.style.backgroundColor = "var(--third)"
 }
 
 function cutFileName(file) {

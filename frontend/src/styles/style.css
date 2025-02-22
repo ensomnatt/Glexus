@@ -55,6 +55,7 @@ main {
 }
 
 .side-panel__switcher {
+  border: none;
   width: 100%;
   height: 50px;
   display: flex;
@@ -67,6 +68,7 @@ main {
 }
 
 .side-panel__switcher-btn {
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,8 +82,8 @@ main {
   cursor: pointer;
 }
 
-.side-panel__switcher-btn:hover, .side-panel__switcher-btn:active {
-  background-color: var(--fourth);
+#users {
+  background-color: var(--fifth);
 }
 
 .users-list, .video-list {
@@ -145,7 +147,7 @@ main {
   color: var(--second);
 }
 
-.users-list__item:hover, .video-list__item:hover, .watch:hover, .docs:hover, .profile:hover {
+.users-list__item:hover, .video-list__item:hover, .watch:hover, .docs:hover, .profile:hover, .side-panel__switcher-btn__text:hover {
   transition: all .2s ease-in-out;
   transform: scale(.95);
 }

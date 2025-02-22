@@ -4,7 +4,6 @@ import (
 	"glexus/backend/internal/config"
 	"net/http"
 	"sync"
-	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"
@@ -85,7 +84,6 @@ func (s *Server) readFromClient(conn *websocket.Conn) {
     }
 
     msg.IP = conn.RemoteAddr().String()
-    msg.Time = time.Now().Format("20:35")
     s.broadcast <- msg
   }
   s.clients.mu.Lock()

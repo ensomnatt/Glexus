@@ -20,12 +20,16 @@
     </header>
 
     <main>
-      <video id="player" playsinline controls></video>
+      <video id="player" playsinline controls preload="auto"></video>
 
       <div class="side-panel">
         <div class="side-panel__switcher">
-          <button type="button" class="side-panel__switcher-btn" id="users">Users</button>
-          <button type="button" class="side-panel__switcher-btn" id="videos">Videos</button>
+          <button type="button" class="side-panel__switcher-btn" id="users">
+            <span class="side-panel__switcher-btn__text">Users</span>
+          </button>
+          <button type="button" class="side-panel__switcher-btn" id="videos">
+            <span class="side-panel__switcher-btn__text">Videos</span>
+          </button>
         </div>
         <ul class="users-list" id="users-list">
           <li class="users-list__item"></li>
