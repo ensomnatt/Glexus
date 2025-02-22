@@ -72,7 +72,6 @@ ws.addEventListener("message", (event) => {
       break
     case "play":
       player.play()
-      console.log(data.time)
       player.currentTime = data.time
   }
 })
